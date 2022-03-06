@@ -12,23 +12,18 @@ export class EquipmentController {
     return this.equipmentService.create(createEquipmentDto);
   }
 
-  @Get()
-  findAll() {
-    return this.equipmentService.findAll();
-  }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.equipmentService.findOne(+id);
+    return this.equipmentService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateEquipmentDto: UpdateEquipmentDto) {
-    return this.equipmentService.update(+id, updateEquipmentDto);
+    return this.equipmentService.update(id, updateEquipmentDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.equipmentService.remove(+id);
+    return this.equipmentService.remove(id);
   }
 }
