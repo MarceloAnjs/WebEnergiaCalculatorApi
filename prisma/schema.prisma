@@ -13,6 +13,7 @@ datasource db {
 model Users {
   id String @id @default(uuid())
   email String @unique
+  createdAt DateTime @default(now())
 
   equipment Equipment[]
   history History[]
@@ -26,6 +27,7 @@ model Equipment {
   quantity Decimal
   time  String
   power Decimal
+  createdAt DateTime @default(now())
 
   user Users @relation(fields: [userId], references: [id])
   userId String
@@ -39,6 +41,7 @@ model History {
   consumption Decimal
   fare Decimal
   equipments Json
+  createdAt DateTime @default(now())
   
   user Users @relation(fields: [userId], references: [id])
   userId String

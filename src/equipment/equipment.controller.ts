@@ -12,17 +12,17 @@ export class EquipmentController {
     return this.equipmentService.create(createEquipmentDto);
   }
 
-  @Get(':id')
+  @Get('/id/:id')
   findOne(@Param('id') id: string) {
     return this.equipmentService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch('/id/:id')
   update(@Param('id') id: string, @Body() updateEquipmentDto: UpdateEquipmentDto) {
     return this.equipmentService.update(id, updateEquipmentDto);
   }
 
-  @Delete(':id')
+  @Delete('/id/:id')
   remove(@Param('id') id: string) {
     return this.equipmentService.remove(id);
   }
