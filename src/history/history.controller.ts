@@ -12,23 +12,18 @@ export class HistoryController {
     return this.historyService.create(createHistoryDto);
   }
 
-  @Get()
-  findAll() {
-    return this.historyService.findAll();
-  }
-
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.historyService.findOne(+id);
+    return this.historyService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateHistoryDto: UpdateHistoryDto) {
-    return this.historyService.update(+id, updateHistoryDto);
+    return this.historyService.update(id, updateHistoryDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.historyService.remove(+id);
+    return this.historyService.remove(id);
   }
 }
