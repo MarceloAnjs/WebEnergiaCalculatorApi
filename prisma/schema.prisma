@@ -10,3 +10,38 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Users {
+  id String @id @default(uuid())
+  email String @unique
+
+  equipment Equipment[]
+  history History[]
+
+  @@map("users")
+}
+
+model Equipment {
+  id String @id @default(uuid())
+  name String
+  quantity Decimal
+  time  String
+  power Decimal
+
+  user Users @relation(fields: [userId], references: [id])
+  userId String
+
+  @@map("equipment")
+}
+
+model History {
+  id String @id @default(uuid())
+  cost Decimal
+  consumption Decimal
+  fare Decimal
+  equipments Json
+  
+  user Users @relation(fields: [userId], references: [id])
+  userId String
+
+  @@map("history")
+}
