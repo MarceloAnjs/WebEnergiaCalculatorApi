@@ -11,8 +11,7 @@ datasource db {
 }
 
 model Users {
-  id String @id @default(uuid())
-  email String @unique
+  email String @unique @id 
   createdAt DateTime @default(now())
 
   equipment Equipment[]
@@ -24,12 +23,12 @@ model Users {
 model Equipment {
   id String @id @default(uuid())
   name String
-  quantity Decimal
+  quantity Int
   time  String
   power Decimal
   createdAt DateTime @default(now())
 
-  user Users @relation(fields: [userId], references: [id])
+  user Users @relation(fields: [userId], references: [email])
   userId String
 
   @@map("equipment")
@@ -40,10 +39,10 @@ model History {
   cost Decimal
   consumption Decimal
   fare Decimal
-  equipments Json
+  equipments String
   createdAt DateTime @default(now())
   
-  user Users @relation(fields: [userId], references: [id])
+  user Users @relation(fields: [userId], references: [email])
   userId String
 
   @@map("history")
