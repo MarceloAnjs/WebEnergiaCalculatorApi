@@ -23,7 +23,7 @@ model Users {
 model Equipment {
   id String @id @default(uuid())
   name String
-  quantity Decimal
+  quantity Int
   time  String
   power Decimal
   createdAt DateTime @default(now())
@@ -39,7 +39,7 @@ model History {
   cost Decimal
   consumption Decimal
   fare Decimal
-  equipments Json
+  equipments String
   createdAt DateTime @default(now())
   
   user Users @relation(fields: [userId], references: [email])
