@@ -12,17 +12,19 @@ export class UsersService {
   }
 
   findOne(id: string) {
-    return this.prisma.users.findFirst({ where: { id } });
+    return this.prisma.users.findFirst({ where: { email: id } });
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
     return this.prisma.users.update({
-      where: { id },
+      where: { 
+        email: id
+       },
       data: updateUserDto,
     });
   }
 
   remove(id: string) {
-    return this.prisma.users.delete({ where: { id } });
+    return this.prisma.users.delete({ where: { email: id } });
   }
 }

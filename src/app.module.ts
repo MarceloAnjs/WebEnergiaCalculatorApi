@@ -6,13 +6,18 @@ import { EquipmentModule } from './equipment/equipment.module';
 import { HistoryModule } from './history/history.module';
 import { AuthController } from './auth/auth.controller';
 import { MailerModule } from '@nestjs-modules/mailer';
-import { BullModule, Process } from '@nestjs/bull';
+import { BullModule } from '@nestjs/bull';
 import { ConfigModule } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './auth/constants';
+import { JwtStrategy } from './auth/jwt.strategy';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [UsersModule,
     EquipmentModule,
     HistoryModule,
+    PassportModule,
     ConfigModule.forRoot(),
     BullModule.forRoot({
       redis: {
@@ -29,9 +34,14 @@ import { ConfigModule } from '@nestjs/config';
           pass: process.env.MAIL_PASS,
         }
       }
-    })
+    }),
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '1h' },
+    }),
   ],
   controllers: [AppController, AuthController],
-  providers: [AppService],
+  providers: [AppService, JwtStrategy],
+  exports: [JwtModule],
 })
 export class AppModule { }
