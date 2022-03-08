@@ -5,10 +5,28 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
-  constructor (private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
-  create(createUserDto: CreateUserDto) {
-    return this.prisma.users.create({ data: createUserDto });
+  async create(createUserDto: CreateUserDto) {
+    if (createUserDto.email) {
+      const user = await this.prisma.users.findUnique({
+        where: {
+          email: createUserDto.email,
+        },
+      });
+
+      if (!user) {
+        const newUser = await this.prisma.users.create({
+          data: {
+            email: createUserDto.email,
+          },
+        });
+        return newUser;
+      }
+      return {
+        skip: 'User already exists',
+      };
+    }
   }
 
   findOne(id: string) {
@@ -17,9 +35,9 @@ export class UsersService {
 
   update(id: string, updateUserDto: UpdateUserDto) {
     return this.prisma.users.update({
-      where: { 
+      where: {
         email: id
-       },
+      },
       data: updateUserDto,
     });
   }

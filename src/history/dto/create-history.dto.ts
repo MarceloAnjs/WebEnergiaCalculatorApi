@@ -12,7 +12,7 @@ export class CreateHistoryDto extends History{
     @IsDecimal()
     fare: string | number | Prisma.Decimal;
     
-    equipments: Prisma.InputJsonValue;
+    equipments: string;
     
     @IsString()
     userId: string;

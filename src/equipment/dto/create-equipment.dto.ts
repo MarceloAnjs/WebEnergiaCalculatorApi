@@ -1,13 +1,13 @@
 import { Prisma } from "@prisma/client";
-import { IsDecimal, IsString } from "class-validator";
+import { IsDecimal, IsNumber, IsString } from "class-validator";
 import { Equipment } from "../entities/equipment.entity";
 
 export class CreateEquipmentDto extends Equipment {
     @IsString()
     name: string;
     
-    @IsDecimal()
-    quantity: string | number | Prisma.Decimal;
+    @IsNumber()
+    quantity: number
     
     @IsString()
     time: string;
